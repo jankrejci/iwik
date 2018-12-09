@@ -86,6 +86,9 @@ class CeskeDrahy:
         guid = json.loads(response.text)["guid"]
         response = session.get(self.API_GUID_ADDRESS + str(guid))
         clean_json = json.loads(re.findall(r"var model = (.*)", response.text)[0][:-2])
+        
+        with open('carrier.json', 'w') as file:
+            file.write(clean_json)
 
         trains = []
         for item in clean_json["list"]:
@@ -94,10 +97,14 @@ class CeskeDrahy:
                     "name": item["trains"][0]["trainName"],
                     "from": item["trains"][0]["from"],
                     "to": item["trains"][0]["to"],
+                    # TODO pouzivat datetime object !!!!!
                     "departure": item["trains"][0]["depTime"],
                     "arrival": item["trains"][0]["arrTime"],
                     "delay": item["trains"][0]["delay"],
                     "price": int(item["price"]["price"] / 100),
+                    "currency": "CZK",
+                    "vehicle_type": 'train',
+                    "carrier": "CD",
                 }
             )
         return trains

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ 		<form action="{{ url_for('search') }}" method="post">
+      <table align=center>
+        <tr align=center>
+          <td>{{ form.source.label }}</td>
+          <td>{{ form.destination.label }}</td>
+          <td>{{ form.departure_date.label }}</td>
+        </tr>
+        <tr align=center>
+          <td>{{ form.source(size=20) }}</td>
+          <td>{{ form.destination(size=20) }}</td>
+          <td>
+            {{ form.departure_date }}
+            <script>
+                $(function(){
+                    $("#departure_date").datepicker({dateFormat: "dd.mm.yy"});
+                });
+            </script>
+          </td>
+        </tr>
+      </table>
+      <input type="submit" value="Search">
+ 		</form>
+
+{% endblock %}

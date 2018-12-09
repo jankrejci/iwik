@@ -1,28 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <table align=center border=1>
-  <tr>
-    <td><b>Odjezd</b></td>
-    <td><b>Z</b></td>
-    <td><b>Do</b></td>
-    <td><b>Příjezd</b></td>
-    <td><b>Vlak</b></td>
-    <td><b>Zpoždění</b></td>
-  </tr>
   {% for train in trains %}
-  <tr>
-    <td>{{train['departure']}}</td>
-    <td>{{train['from']}}</td>
-    <td>{{train['to']}}</td>
-    <td>{{train['arrival']}}</td>
-    <td>{{train['name']}}</td>
-    {% if train['delay'] == -1 %}
-      <td>vlak nevyjel</td>
-    {% else %}
-      <td>{{train['delay']}}</td>
-    {% endif %}
-  </tr>
-  {% endfor %}
+  <table align=center border=0 width=700 bgcolor=#eeffbc>
+    <tr align=center>
+      <td width=200>{{train['departure']}}</td>
+
+      {% if train['delay'] == -1 %}
+        <td></td>
+      {% else %}
+        <td>zpoždění {{train['delay']}} min</td>
+      {% endif %}
+
+      <td width=200>{{train['arrival']}}</td>
+    </tr>
+    <tr align=center>
+      <td>{{train['from']}}</td>
+      <td>{{train['name']}}</td>
+      <td>{{train['to']}}</td>
+    </tr>
   </table>
+  <br>
+  {% endfor %}
+
 {% endblock %}
